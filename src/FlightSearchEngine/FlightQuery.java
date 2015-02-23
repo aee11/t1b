@@ -8,19 +8,19 @@ import java.util.Date;
 public class FlightQuery {
     private String flightQuery;
 
-    public FlightQuery departureTime(Date time) {
+    public FlightQuery setDepartureTime(Date time) {
         return this;
     }
 
-    public FlightQuery returnTime(Date time) {
+    public FlightQuery setReturnTime(Date time) {
         return this;
     }
 
-    public FlightQuery from(String location) {
+    public FlightQuery setFrom(String location) {
         return this;
     }
 
-    public FlightQuery to(String location) {
+    public FlightQuery setTo(String location) {
         return this;
     }
 
@@ -33,15 +33,15 @@ public class FlightQuery {
         return this;
     }
 
-    public FlightQuery layoverTime(int minTime, int maxTime) {
+    public FlightQuery setLayoverTime(int minTime, int maxTime) {
         return this;
     }
 
-    public FlightQuery onlyNightFlights(Boolean nightFlightsOnly) {
+    public FlightQuery setOnlyNightFlights(Boolean nightFlightsOnly) {
         return this;
     }
 
-    public FlightQuery seatsRequired(int numSeats) {
+    public FlightQuery setSeatsRequired(int numSeats) {
         return this;
     }
 
