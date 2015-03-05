@@ -8,9 +8,11 @@ import static org.junit.Assert.*;
 
 public class FlightEngineTest {
 
+    FlightEngine flightEngine;
+
     @Before
     public void setUp() throws Exception {
-
+        flightEngine = new FlightEngine();
     }
 
     @After

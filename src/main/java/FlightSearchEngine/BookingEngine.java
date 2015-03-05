@@ -3,6 +3,13 @@ package FlightSearchEngine;
 /**
  * Created by Gisli on 05/03/15.
  */
+
+import org.jooq.util.sqlite.SQLiteDSL;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+import org.jooq.impl.DSL.*;
 /**
  *
  */

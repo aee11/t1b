@@ -4,17 +4,37 @@ package FlightSearchEngine;
  * Created by Gisli on 05/03/15.
  */
 
-import javax.xml.transform.Result;
+import org.jooq.DSLContext;
+import org.jooq.Record;
+import org.jooq.Result;
+import org.jooq.SQLDialect;
+import org.jooq.impl.DSL;
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
+import static FlightSearchEngine.Tables.*;
+import static org.jooq.impl.DSL.*;
 /**
  *
  */
 public class FlightEngine {
+    final String DB_URL = "jdbc:sqlite:flightSearchEngine.db";
+    Connection conn;
+    DSLContext create;
 
-    /**
-     *
-     */
     public FlightEngine() {
+        setupDbConnection();
+    }
+
+    private void setupDbConnection() {
+        try {
+            conn = DriverManager.getConnection(DB_URL);
+            create = DSL.using(conn, SQLDialect.SQLITE);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
