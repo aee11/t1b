@@ -1,4 +1,4 @@
-package main.java.FlightSearchEngine;
+package FlightSearchEngine;
 
 /**
  * Created by Gisli on 05/03/15.
@@ -18,18 +18,18 @@ public class BookingEngine {
      * @param booking
      * @return
      */
-    public bool bookFlightTrip(Booking booking) {
+    public boolean bookFlightTrip(Booking booking) {
         // TODO implement here
-        return null;
+        return false;
     }
 
     /**
      * @param booking
      * @return
      */
-    private bool sendEmail(Booking booking) {
+    private boolean sendEmail(Booking booking) {
         // TODO implement here
-        return null;
+        return false;
     }
 
 }

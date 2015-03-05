@@ -31,7 +31,7 @@ public class Booking {
     /**
      * @return
      */
-    public string[] getNames() {
+    public String[] getNames() {
         // TODO implement here
         return null;
     }
@@ -39,7 +39,7 @@ public class Booking {
     /**
      * @return
      */
-    public string getEmail() {
+    public String getEmail() {
         // TODO implement here
         return null;
     }

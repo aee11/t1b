@@ -98,7 +98,7 @@ public class FlightQuery {
      */
     public void setLayoverAllowed(boolean layoverAllowed ) {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
@@ -108,7 +108,7 @@ public class FlightQuery {
      */
     public void setLayoverTime(int minTime , int maxTime ) {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
@@ -117,7 +117,7 @@ public class FlightQuery {
      */
     public void setNightFlightsOnly(boolean nightFlightsOnly ) {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
@@ -126,7 +126,7 @@ public class FlightQuery {
      */
     public void setSeatsRequired(int numSeats ) {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
@@ -135,7 +135,7 @@ public class FlightQuery {
      */
     public void setExcludedAirlines(String[] airlines ) {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
@@ -144,7 +144,7 @@ public class FlightQuery {
      */
     public void setIncludedAirlines(String[] airlines ) {
         // TODO implement here
-        return null;
+        return;
     }
 
     /**
@@ -184,7 +184,7 @@ public class FlightQuery {
      */
     public boolean getLayoverAllowed() {
         // TODO implement here
-        return null;
+        return false;
     }
 
     /**

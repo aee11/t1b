@@ -1,4 +1,4 @@
-package main.java.FlightSearchEngine;
+package FlightSearchEngine;
 
 /**
  * Created by Gisli on 05/03/15.
@@ -27,7 +27,7 @@ public class FlightEngine {
      * @param queryToSearchBy
      * @return
      */
-    private string createQuery(FlightQuery queryToSearchBy) {
+    private String createQuery(FlightQuery queryToSearchBy) {
         // TODO implement here
         return null;
     }
@@ -36,7 +36,7 @@ public class FlightEngine {
      * @param query
      * @return
      */
-    private Result executeQuery(string query) {
+    private Result executeQuery(String query) {
         // TODO implement here
         return null;
     }
@@ -55,7 +55,7 @@ public class FlightEngine {
      * @param toLocation
      * @return
      */
-    private FlightTrip[] searchLayoverFlights(string fromLocation, string toLocation) {
+    private FlightTrip[] searchLayoverFlights(String fromLocation, String toLocation) {
         // TODO implement here
         return null;
     }
