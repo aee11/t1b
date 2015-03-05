@@ -18,7 +18,7 @@ public class FlightQuery {
 
 
     /**
-     *
+     * sdf
      */
     private Date departureTime;
 
