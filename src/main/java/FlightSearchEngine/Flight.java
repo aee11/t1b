@@ -1,5 +1,6 @@
 package FlightSearchEngine;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -7,15 +8,15 @@ import java.util.Date;
  */
 public class Flight {
     private int flightNumber;
-    private Date departureTime;
-    private Date arrivalTime;
+    private LocalDateTime departureTime;
+    private LocalDateTime arrivalTime;
     private int price;
     private String departureLocation;
     private String arrivalLocation;
     private String airline;
     private int seatsAvailable;
 
-    public Flight(int flightNumber, Date departureTime, Date arrivalTime, int price, String departureLocation, String arrivalLocation, String airline, int seatsAvailable) {
+    public Flight(int flightNumber, LocalDateTime departureTime, LocalDateTime arrivalTime, int price, String departureLocation, String arrivalLocation, String airline, int seatsAvailable) {
         this.flightNumber = flightNumber;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
@@ -30,11 +31,11 @@ public class Flight {
         return 0;
     }
 
-    public Date getDepartureTime() {
+    public LocalDateTime getDepartureTime() {
         return departureTime;
     }
 
-    public Date getArrivalTime() {
+    public LocalDateTime getArrivalTime() {
         return arrivalTime;
     }
 

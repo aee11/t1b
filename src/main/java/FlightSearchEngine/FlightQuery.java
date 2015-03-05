@@ -1,5 +1,7 @@
 package FlightSearchEngine;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import org.jooq.*;
 import org.jooq.impl.DSL;
@@ -18,14 +20,14 @@ public class FlightQuery {
 
 
     /**
-     * sdf
+     *
      */
-    private Date departureTime;
+    private LocalDate departureTime;
 
     /**
      *
      */
-    private Date returnTime;
+    private LocalDate returnTime;
 
     /**
      *
@@ -78,7 +80,7 @@ public class FlightQuery {
      * @param fromLocation
      * @param toLocation
      */
-    public FlightQuery(Date departureTime, String fromLocation, String toLocation) {
+    public FlightQuery(LocalDate departureTime, String fromLocation, String toLocation) {
         // TODO implement here
     }
 
@@ -88,7 +90,7 @@ public class FlightQuery {
      * @param fromLocation
      * @param toLocation
      */
-    public FlightQuery(Date departureTime, Date returnTime, String fromLocation, String toLocation) {
+    public FlightQuery(LocalDate departureTime, LocalDate returnTime, String fromLocation, String toLocation) {
         // TODO implement here
     }
 
@@ -150,7 +152,7 @@ public class FlightQuery {
     /**
      * @return
      */
-    public Date getDepartureTime() {
+    public LocalDate getDepartureTime() {
         // TODO implement here
         return null;
     }
@@ -158,7 +160,7 @@ public class FlightQuery {
     /**
      * @return
      */
-    public Date getReturnTime() {
+    public LocalDate getReturnTime() {
         // TODO implement here
         return null;
     }
