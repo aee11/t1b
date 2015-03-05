@@ -27,7 +27,7 @@ public class FlightTest {
 
     @After
     public void tearDown() throws Exception {
-
+        fl = null;
     }
 
     @Test
