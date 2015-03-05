@@ -16,18 +16,6 @@ public class Booking {
         this.flightTrip = flightTrip;
     }
 
-    public Boolean bookFlightTrip(FlightTrip tripToBook) {
-        return false;
-    }
-
-    public Boolean bookFlightTrip(int[] flightIds) {
-        return false;
-    }
-
-    public Boolean bookFlightTrip(Flight[] flightsToBook) {
-        return false;
-    }
-
     /**
      * @return
      */
