@@ -56,6 +56,6 @@ public class FlightTripTest {
 
     @Test
     public void testGetTotalPrice() throws Exception {
-        assertEquals(totalprice,flightTrip.getTotalPrice());
+        assertEquals(totalprice,flightTrip.getTotalPrice("isk"));
     }
 }
