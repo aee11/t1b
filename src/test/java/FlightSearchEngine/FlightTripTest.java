@@ -41,7 +41,7 @@ public class FlightTripTest {
 
     @After
     public void tearDown() throws Exception {
-
+        flightTrip = null;
     }
 
     @Test

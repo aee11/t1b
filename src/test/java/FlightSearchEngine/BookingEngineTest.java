@@ -44,7 +44,7 @@ Booking booking;
 
     @After
     public void tearDown() throws Exception {
-
+        booking = null;
     }
 
     @Test
