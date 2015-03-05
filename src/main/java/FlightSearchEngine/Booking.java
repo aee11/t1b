@@ -7,11 +7,13 @@ public class Booking {
     private final String[] names;
     private final String email;
     private final int numSeats;
+    private final FlightTrip flightTrip;
 
-    public Booking(String[] names, String email, int numSeats) {
+    public Booking(String[] names, String email, int numSeats, FlightSearchEngine.FlightTrip flightTrip) {
         this.names = names;
         this.email = email;
         this.numSeats = numSeats;
+        this.flightTrip = flightTrip;
     }
 
     public Boolean bookFlightTrip(FlightTrip tripToBook) {
@@ -24,5 +26,37 @@ public class Booking {
 
     public Boolean bookFlightTrip(Flight[] flightsToBook) {
         return false;
+    }
+
+    /**
+     * @return
+     */
+    public string[] getNames() {
+        // TODO implement here
+        return null;
+    }
+
+    /**
+     * @return
+     */
+    public string getEmail() {
+        // TODO implement here
+        return null;
+    }
+
+    /**
+     * @return
+     */
+    public int getNumSeats() {
+        // TODO implement here
+        return 0;
+    }
+
+    /**
+     * @return
+     */
+    public int getFlightTrip() {
+        // TODO implement here
+        return 0;
     }
 }

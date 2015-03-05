@@ -8,62 +8,231 @@ import org.jooq.impl.DSL.*;
 /**
  * Created by Alexander on 18.2.2015.
  */
+
+import java.util.*;
+
+/**
+ *
+ */
 public class FlightQuery {
-    private String flightQuery;
-//    DSLContext create = DSL.using(configuration);
 
-    public FlightQuery setDepartureTime(Date time) {
-//        String sql = create.select(field("BOOK.TITLE"), field("AUTHOR.FIRST_NAME"), field("AUTHOR.LAST_NAME"))
-//                .from(table("BOOK"))
-//                .join(table("AUTHOR"))
-//                .on(field("BOOK.AUTHOR_ID").equal(field("AUTHOR.ID")))
-//                .where(field("BOOK.PUBLISHED_IN").equal(1948))
-//                .getSQL();
-        return this;
+
+    /**
+     *
+     */
+    private Date departureTime;
+
+    /**
+     *
+     */
+    private Date returnTime;
+
+    /**
+     *
+     */
+    private String fromLocation;
+
+    /**
+     *
+     */
+    private String toLocation;
+
+    /**
+     *
+     */
+    private boolean layoverAllowed;
+
+    /**
+     *
+     */
+    private int layoverTimeMin;
+
+    /**
+     *
+     */
+    private int layoverTimeMax;
+
+    /**
+     *
+     */
+    private boolean nightFlightsOnly;
+
+    /**
+     *
+     */
+    private int seatsRequired;
+
+    /**
+     *
+     */
+    private String[] excludedAirlines;
+
+    /**
+     *
+     */
+    private String[] includedAirlines;
+
+
+    /**
+     * @param departureTime
+     * @param fromLocation
+     * @param toLocation
+     */
+    public FlightQuery(Date departureTime, String fromLocation, String toLocation) {
+        // TODO implement here
     }
 
-    public FlightQuery setReturnTime(Date time) {
-        return this;
+    /**
+     * @param departureTime
+     * @param returnTime
+     * @param fromLocation
+     * @param toLocation
+     */
+    public FlightQuery(Date departureTime, Date returnTime, String fromLocation, String toLocation) {
+        // TODO implement here
     }
 
-    public FlightQuery setFrom(String location) {
-        return this;
+    /**
+     * @param layoverAllowed
+     * @return
+     */
+    public void setLayoverAllowed(boolean layoverAllowed ) {
+        // TODO implement here
+        return null;
     }
 
-    public FlightQuery setTo(String location) {
-        return this;
+    /**
+     * @param minTime
+     * @param maxTime
+     * @return
+     */
+    public void setLayoverTime(int minTime , int maxTime ) {
+        // TODO implement here
+        return null;
     }
 
-    public FlightQuery sortBy(String field) // default: by price
-    {
-        return this;
+    /**
+     * @param nightFlightsOnly
+     * @return
+     */
+    public void setNightFlightsOnly(boolean nightFlightsOnly ) {
+        // TODO implement here
+        return null;
     }
 
-    public FlightQuery allowLayover(Boolean layoverAllowed) {
-        return this;
+    /**
+     * @param numSeats
+     * @return
+     */
+    public void setSeatsRequired(int numSeats ) {
+        // TODO implement here
+        return null;
     }
 
-    public FlightQuery setLayoverTime(int minTime, int maxTime) {
-        return this;
+    /**
+     * @param airlines
+     * @return
+     */
+    public void setExcludedAirlines(String[] airlines ) {
+        // TODO implement here
+        return null;
     }
 
-    public FlightQuery setOnlyNightFlights(Boolean nightFlightsOnly) {
-        return this;
+    /**
+     * @param airlines
+     * @return
+     */
+    public void setIncludedAirlines(String[] airlines ) {
+        // TODO implement here
+        return null;
     }
 
-    public FlightQuery setSeatsRequired(int numSeats) {
-        return this;
+    /**
+     * @return
+     */
+    public Date getDepartureTime() {
+        // TODO implement here
+        return null;
     }
 
-    public FlightQuery excludeAirlines(String[] airlines) {
-        return this;
+    /**
+     * @return
+     */
+    public Date getReturnTime() {
+        // TODO implement here
+        return null;
     }
 
-    public FlightQuery includeAirlines(String[] airlines) {
-        return this;
+    /**
+     * @return
+     */
+    public String getFromLocation() {
+        // TODO implement here
+        return null;
     }
 
-    public FlightTrip[] fetch() {
-        return new FlightTrip[0];
+    /**
+     * @return
+     */
+    public String getToLocation() {
+        // TODO implement here
+        return null;
     }
+
+    /**
+     * @return
+     */
+    public boolean getLayoverAllowed() {
+        // TODO implement here
+        return null;
+    }
+
+    /**
+     * @return
+     */
+    public int getLayoverTimeMin() {
+        // TODO implement here
+        return 0;
+    }
+
+    /**
+     * @return
+     */
+    public int getLayoverTimeMax() {
+        // TODO implement here
+        return 0;
+    }
+
+    /**
+     * @return
+     */
+    public int getNightFlightsOnly() {
+        // TODO implement here
+        return 0;
+    }
+
+    /**
+     * @return
+     */
+    public int getSeatsRequired() {
+        // TODO implement here
+        return 0;
+    }
+
+    /**
+     * @return
+     */
+    public String[] getExcludedAirlines() {
+        // TODO implement here
+        return null;
+    }
+
+    /**
+     * @return
+     */
+    public String[] getIncludedAirlines() {
+        // TODO implement here
+        return null;
+    }
+
 }
