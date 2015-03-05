@@ -29,13 +29,14 @@ public class FlightTripTest {
 
 
     Flight departureFlight = new Flight(flightNumber1,departureTime1,arrivalTime1,price1,departureLocation1,arrivalLocation1,airline1,seatsAvailable1);
-    Flight arrivalFlight = new Flight(flightNumber2,departureTime2,arrivalTime2,price2,departureLocation2,arrivalLocation2,airline2,seatsAvailable2);
-    Flight[] dep = {departureFlight};
-    Flight[] ari = {arrivalFlight};
-
+    Flight returnFlight = new Flight(flightNumber2,departureTime2,arrivalTime2,price2,departureLocation2,arrivalLocation2,airline2,seatsAvailable2);
+    Flight[] departureFlights = {departureFlight};
+    Flight[] returnFlights = {returnFlight};
+    FlightTrip flightTrip;
+    int totalprice = price1 + price2;
     @Before
     public void setUp() throws Exception {
-
+        flightTrip = new FlightTrip(departureFlights,returnFlights);
     }
 
     @After
@@ -45,16 +46,16 @@ public class FlightTripTest {
 
     @Test
     public void testGetDepartureFlights() throws Exception {
-
+        assertArrayEquals(departureFlights,flightTrip.getDepartureFlights());
     }
 
     @Test
     public void testGetReturnFlights() throws Exception {
-
+        assertArrayEquals(returnFlights,flightTrip.getReturnFlights());
     }
 
     @Test
     public void testGetTotalPrice() throws Exception {
-
+        assertEquals(totalprice,flightTrip.getTotalPrice());
     }
 }
