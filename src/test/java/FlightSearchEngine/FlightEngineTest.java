@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -142,7 +143,7 @@ public class FlightEngineTest {
         }
         LocalDate departureDate =  LocalDate.of(2015,3,30);
         FlightQuery query = new FlightQuery(departureDate,"Reykjavik","London");
-        FlightTrip[] results = flightEngine.getResults(query);
-        assertEquals(2,results.length);
+        List<FlightTrip> results = flightEngine.getResults(query);
+        assertEquals(2,results.size());
     }
 }
