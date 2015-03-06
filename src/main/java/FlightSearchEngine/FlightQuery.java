@@ -1,17 +1,10 @@
 package FlightSearchEngine;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
-import org.jooq.*;
-import org.jooq.impl.DSL;
-import org.jooq.impl.DSL.*;
 
 /**
  * Created by Alexander on 18.2.2015.
  */
-
-import java.util.*;
 
 /**
  *
@@ -42,17 +35,17 @@ public class FlightQuery {
     /**
      *
      */
-    private boolean layoverAllowed;
+    private boolean layoverAllowed = true;
 
     /**
      *
      */
-    private int layoverTimeMin;
+    private int connectionTimeMin;
 
     /**
      *
      */
-    private int layoverTimeMax;
+    private int connectionTimeMax;
 
     /**
      *
@@ -81,7 +74,9 @@ public class FlightQuery {
      * @param toLocation
      */
     public FlightQuery(LocalDate departureTime, String fromLocation, String toLocation) {
-        // TODO implement here
+        this.departureTime = departureTime;
+        this.fromLocation = fromLocation;
+        this.toLocation = toLocation;
     }
 
     /**
@@ -91,7 +86,10 @@ public class FlightQuery {
      * @param toLocation
      */
     public FlightQuery(LocalDate departureTime, LocalDate returnTime, String fromLocation, String toLocation) {
-        // TODO implement here
+        this.departureTime = departureTime;
+        this.returnTime = returnTime;
+        this.fromLocation = fromLocation;
+        this.toLocation = toLocation;
     }
 
     /**
@@ -99,18 +97,26 @@ public class FlightQuery {
      * @return
      */
     public void setLayoverAllowed(boolean layoverAllowed ) {
-        // TODO implement here
-        return;
+        this.layoverAllowed = layoverAllowed;
     }
 
     /**
-     * @param minTime
-     * @param maxTime
-     * @return
+     * @param minTime Sets the minimum connection time between two flights in minutes.
+     *                Allowed values in range 60..1200
+     * @param maxTime Sets the maximum connection time between two flights in minutes.
+     *                Allowed values in range 60..1200
+     * @throws IllegalArgumentException If minTime or maxTime are not
+     *                                  within correct range.
      */
-    public void setLayoverTime(int minTime , int maxTime ) {
-        // TODO implement here
-        return;
+    public void setConnectionTime(int minTime, int maxTime ) {
+        if (minTime < 60) {
+            throw new IllegalArgumentException(minTime + " is not in range 60..20*60");
+        }
+        if (maxTime > 20*60) {
+            throw new IllegalArgumentException(maxTime + " is not in range 60..20*60");
+        }
+        this.connectionTimeMin = minTime;
+        this.connectionTimeMax = maxTime;
     }
 
     /**
@@ -118,8 +124,7 @@ public class FlightQuery {
      * @return
      */
     public void setNightFlightsOnly(boolean nightFlightsOnly ) {
-        // TODO implement here
-        return;
+        this.nightFlightsOnly = nightFlightsOnly;
     }
 
     /**
@@ -127,8 +132,7 @@ public class FlightQuery {
      * @return
      */
     public void setSeatsRequired(int numSeats ) {
-        // TODO implement here
-        return;
+        this.seatsRequired = numSeats;
     }
 
     /**
@@ -136,8 +140,7 @@ public class FlightQuery {
      * @return
      */
     public void setExcludedAirlines(String[] airlines ) {
-        // TODO implement here
-        return;
+        excludedAirlines = airlines;
     }
 
     /**
@@ -145,96 +148,84 @@ public class FlightQuery {
      * @return
      */
     public void setIncludedAirlines(String[] airlines ) {
-        // TODO implement here
-        return;
+        includedAirlines = airlines;
     }
 
     /**
      * @return
      */
     public LocalDate getDepartureTime() {
-        // TODO implement here
-        return null;
+        return departureTime;
     }
 
     /**
      * @return
      */
     public LocalDate getReturnTime() {
-        // TODO implement here
-        return null;
+        return returnTime;
     }
 
     /**
      * @return
      */
     public String getFromLocation() {
-        // TODO implement here
-        return null;
+        return fromLocation;
     }
 
     /**
      * @return
      */
     public String getToLocation() {
-        // TODO implement here
-        return null;
+        return toLocation;
     }
 
     /**
      * @return
      */
     public boolean getLayoverAllowed() {
-        // TODO implement here
-        return false;
+        return layoverAllowed;
     }
 
     /**
      * @return
      */
-    public int getLayoverTimeMin() {
-        // TODO implement here
-        return 0;
+    public int getConnectionTimeMin() {
+        return connectionTimeMin;
     }
 
     /**
      * @return
      */
-    public int getLayoverTimeMax() {
-        // TODO implement here
-        return 0;
+    public int getConnectionTimeMax() {
+        return connectionTimeMax;
     }
 
     /**
      * @return
      */
-    public int getNightFlightsOnly() {
-        // TODO implement here
-        return 0;
+    public boolean getNightFlightsOnly() {
+        return nightFlightsOnly;
     }
 
     /**
      * @return
      */
     public int getSeatsRequired() {
-        // TODO implement here
-        return 0;
+        return seatsRequired;
     }
 
     /**
      * @return
      */
     public String[] getExcludedAirlines() {
-        // TODO implement here
-        return null;
+        return excludedAirlines;
     }
 
     /**
      * @return
      */
     public String[] getIncludedAirlines() {
-        // TODO implement here
-        return null;
+        return includedAirlines;
     }
 
 }

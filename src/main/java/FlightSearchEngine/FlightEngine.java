@@ -43,6 +43,7 @@ public class FlightEngine {
      */
     public FlightTrip[] getResults(FlightQuery queryToSearchBy) {
         // TODO implement here
+
         return null;
     }
 

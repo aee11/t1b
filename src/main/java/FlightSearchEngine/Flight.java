@@ -27,8 +27,8 @@ public class Flight {
         this.seatsAvailable = seatsAvailable;
     }
 
-    public int getFlightId() {
-        return 0;
+    public int getFlightNumber() {
+        return flightNumber;
     }
 
     public LocalDateTime getDepartureTime() {
