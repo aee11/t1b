@@ -115,7 +115,11 @@ public class FlightEngineTest {
 
     @After
     public void tearDown() throws Exception {
+        Statement stmt = conn.createStatement();
+        String sql = "Drop table Flights;";
+        stmt.executeUpdate(sql);
         conn.close();
+
     }
 
     @Test
@@ -131,15 +135,15 @@ public class FlightEngineTest {
             String  arrivalLocation = rs.getString("arrivalLocation");
             int price = rs.getInt("price");
             int seatsAvailable = rs.getInt("seatsAvailable");
-            System.out.println( "flightNumber = " + flightNumber );
-            System.out.println( "airline = " + airline );
-            System.out.println( "departureTime = " + departureTime );
-            System.out.println( "arrivalTime = " + arrivalTime );
-            System.out.println( "departureLocation = " + departureLocation);
-            System.out.println( "arrivalLocation = " + arrivalLocation);
-            System.out.println( "price = " + price);
-            System.out.println( "seatsAvailable = " + seatsAvailable);
-            System.out.println();
+//            System.out.println( "flightNumber = " + flightNumber );
+//            System.out.println( "airline = " + airline );
+//            System.out.println( "departureTime = " + departureTime );
+//            System.out.println( "arrivalTime = " + arrivalTime );
+//            System.out.println( "departureLocation = " + departureLocation);
+//            System.out.println( "arrivalLocation = " + arrivalLocation);
+//            System.out.println( "price = " + price);
+//            System.out.println( "seatsAvailable = " + seatsAvailable);
+//            System.out.println();
         }
         LocalDate departureDate =  LocalDate.of(2015,3,30);
         FlightQuery query = new FlightQuery(departureDate,"Reykjavik","London");
