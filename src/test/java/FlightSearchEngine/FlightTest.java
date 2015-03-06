@@ -32,7 +32,7 @@ public class FlightTest {
 
     @Test
     public void testGetFlightId() throws Exception {;
-        assertEquals(flightNumber1, fl.getFlightId());
+        assertEquals(flightNumber1, fl.getFlightNumber());
 
     }
 

@@ -43,7 +43,7 @@ public class Booking {
     /**
      * @return
      */
-    public int getFlightTrip() {
+    public FlightTrip getFlightTrip() {
         // TODO implement here
         return flightTrip;
     }
