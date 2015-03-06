@@ -27,7 +27,7 @@ public class Flight {
         this.seatsAvailable = seatsAvailable;
     }
 
-    public int getFlightId() {
+    public int getFlightNumber() {
         return flightNumber;
     }
 
