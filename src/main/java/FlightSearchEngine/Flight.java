@@ -28,7 +28,7 @@ public class Flight {
     }
 
     public int getFlightId() {
-        return 0;
+        return flightNumber;
     }
 
     public LocalDateTime getDepartureTime() {
