@@ -42,7 +42,14 @@ public class FlightTrip implements Comparable {
      * @param departureFlights
      * @param returnFlights
      */
-    public FlightTrip(Flight[] departureFlights, Flight[] returnFlights) {
+    public FlightTrip(List<Flight> departureFlights, List<Flight> returnFlights) {
+        // TODO implement here
+    }
+
+    /**
+     * @param departureFlights
+     */
+    public FlightTrip(List<Flight> departureFlights) {
         // TODO implement here
     }
 
