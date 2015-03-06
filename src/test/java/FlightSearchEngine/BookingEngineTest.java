@@ -7,12 +7,14 @@ import org.junit.Test;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class BookingEngineTest {
-Booking booking;
+    Booking booking;
     @Before
     public void setUp() throws Exception {
         int flightNumber1 = 1;
@@ -32,14 +34,18 @@ Booking booking;
         String airline2 = "FI";
         int seatsAvailable2 = 100;
 
-
         Flight departureFlight = new Flight(flightNumber1,departureTime1,arrivalTime1,price1,departureLocation1,arrivalLocation1,airline1,seatsAvailable1);
         Flight arrivalFlight = new Flight(flightNumber2,departureTime2,arrivalTime2,price2,departureLocation2,arrivalLocation2,airline2,seatsAvailable2);
-        Flight[] dep = {departureFlight};
-        Flight[] ari = {arrivalFlight};
-        FlightTrip flightTrip = new FlightTrip(dep,ari);
-        String[] names = {"Jón", "Páll", "Móses"};
-        Booking booking = new Booking(names,"jonjonsson@jon.is",3,flightTrip);
+        List<Flight> departureFlights = new ArrayList<>();
+        List<Flight> arrivalFlights = new ArrayList<>();
+        departureFlights.add(departureFlight);
+        arrivalFlights.add(arrivalFlight);
+        FlightTrip flightTrip = new FlightTrip(departureFlights, arrivalFlights);
+        List<String> names = new ArrayList<>();
+        names.add("Jón");
+        names.add("Páll");
+        names.add("Móses");
+        booking = new Booking(names, "jonjonsson@jon.is", 3, flightTrip);
     }
 
     @After
