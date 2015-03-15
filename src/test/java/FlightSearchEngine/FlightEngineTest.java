@@ -230,7 +230,7 @@ public class FlightEngineTest {
     public void testGetResults() throws Exception {
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery( "SELECT * FROM Flights;" );
-        while ( rs.next() ) {
+        while ( rs.next() ) {s
             int flightNumber = rs.getInt("flightNumber");
             String  airline = rs.getString("airline");
             String  departureTime = rs.getString("departureTime");
