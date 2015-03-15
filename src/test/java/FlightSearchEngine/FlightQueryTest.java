@@ -8,7 +8,6 @@ import static org.junit.Assert.*;
 
 public class FlightQueryTest {
 
-    private LayoverTime;
 
     @Before
     public void setUp() throws Exception {

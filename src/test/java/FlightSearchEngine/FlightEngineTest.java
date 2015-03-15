@@ -104,8 +104,8 @@ public class FlightEngineTest {
                 "        'WW', " +
                 "        '2015-03-30 09:10:00', " +
                 "        '2015-03-30 12:55:00', " +
-                "        'Copenhagen'," +
                 "        'Reykjavik'," +
+                "        'Copenhagen'," +
                 "        '30000'," +
                 "        '30');";
         stmt.executeUpdate(sql);
@@ -123,6 +123,110 @@ public class FlightEngineTest {
     }
 
     @Test
+    public void testGetResultsFlightNumber() throws Exception {
+        LocalDate departureDate =  LocalDate.of(2015,3,30);
+        FlightQuery query = new FlightQuery(departureDate,"Reykjavik","Copenhagen");
+        List<FlightTrip> rs = flightEngine.getResults(query);
+        FlightTrip departureFlightTrip = rs.get(0);
+        List<Flight> departureFlights = departureFlightTrip.getDepartureFlights();
+        Flight departureFlight = departureFlights.get(0);
+
+        assertNotNull(departureFlight.getFlightNumber());
+        assertEquals(301,departureFlight.getFlightNumber());
+
+    }
+
+    @Test
+    public void testGetResultsAirline() throws Exception {
+        LocalDate departureDate =  LocalDate.of(2015,3,30);
+        FlightQuery query = new FlightQuery(departureDate,"Reykjavik","Copenhagen");
+        List<FlightTrip> rs = flightEngine.getResults(query);
+        FlightTrip departureFlightTrip = rs.get(0);
+        List<Flight> departureFlights = departureFlightTrip.getDepartureFlights();
+        Flight departureFlight = departureFlights.get(0);
+
+        assertNotNull(departureFlight.getAirline());
+        assertEquals("WW",departureFlight.getAirline());
+    }
+
+    @Test
+    public void testGetDepartureTime() throws Exception {
+        LocalDate departureDate =  LocalDate.of(2015,3,30);
+        FlightQuery query = new FlightQuery(departureDate,"Reykjavik","Copenhagen");
+        List<FlightTrip> rs = flightEngine.getResults(query);
+        FlightTrip departureFlightTrip = rs.get(0);
+        List<Flight> departureFlights = departureFlightTrip.getDepartureFlights();
+        Flight departureFlight = departureFlights.get(0);
+
+        assertNotNull(departureFlight.getDepartureTime());
+        assertEquals("2015-03-30 09:10:00",departureFlight.getDepartureTime());
+    }
+
+    @Test
+    public void testGetArrivalTime() throws Exception {
+        LocalDate departureDate =  LocalDate.of(2015,3,30);
+        FlightQuery query = new FlightQuery(departureDate,"Reykjavik","Copenhagen");
+        List<FlightTrip> rs = flightEngine.getResults(query);
+        FlightTrip departureFlightTrip = rs.get(0);
+        List<Flight> departureFlights = departureFlightTrip.getDepartureFlights();
+        Flight departureFlight = departureFlights.get(0);
+
+        assertNotNull(departureFlight.getArrivalTime());
+        assertEquals("2015-03-30 12:55:00",departureFlight.getArrivalTime());
+    }
+
+    @Test
+    public void testGetDepartureLocation() throws Exception {
+        LocalDate departureDate =  LocalDate.of(2015,3,30);
+        FlightQuery query = new FlightQuery(departureDate,"Reykjavik","Copenhagen");
+        List<FlightTrip> rs = flightEngine.getResults(query);
+        FlightTrip departureFlightTrip = rs.get(0);
+        List<Flight> departureFlights = departureFlightTrip.getDepartureFlights();
+        Flight departureFlight = departureFlights.get(0);
+
+        assertNotNull(departureFlight.getDepartureLocation());
+        assertEquals("Reykjavik",departureFlight.getDepartureLocation());
+    }
+
+    @Test
+    public void testGetArrivalLocation() throws Exception {
+        LocalDate departureDate =  LocalDate.of(2015,3,30);
+        FlightQuery query = new FlightQuery(departureDate,"Reykjavik","Copenhagen");
+        List<FlightTrip> rs = flightEngine.getResults(query);
+        FlightTrip departureFlightTrip = rs.get(0);
+        List<Flight> departureFlights = departureFlightTrip.getDepartureFlights();
+        Flight departureFlight = departureFlights.get(0);
+
+        assertNotNull(departureFlight.getArrivalLocation());
+        assertEquals("Copenhagen",departureFlight.getArrivalLocation());
+    }
+
+    @Test
+    public void testGetPrice() throws Exception {
+        LocalDate departureDate =  LocalDate.of(2015,3,30);
+        FlightQuery query = new FlightQuery(departureDate,"Reykjavik","Copenhagen");
+        List<FlightTrip> rs = flightEngine.getResults(query);
+        FlightTrip departureFlightTrip = rs.get(0);
+        List<Flight> departureFlights = departureFlightTrip.getDepartureFlights();
+        Flight departureFlight = departureFlights.get(0);
+
+        assertNotNull(departureFlight.getPrice());
+        assertEquals(30000,departureFlight.getPrice());
+    }
+
+    @Test
+    public void testGetSeatsAvailable() throws Exception {
+        LocalDate departureDate =  LocalDate.of(2015,3,30);
+        FlightQuery query = new FlightQuery(departureDate,"Reykjavik","Copenhagen");
+        List<FlightTrip> rs = flightEngine.getResults(query);
+        FlightTrip departureFlightTrip = rs.get(0);
+        List<Flight> departureFlights = departureFlightTrip.getDepartureFlights();
+        Flight departureFlight = departureFlights.get(0);
+
+        assertNotNull(departureFlight.getSeatsAvailable());
+        assertEquals(30,departureFlight.getSeatsAvailable());
+    }
+    /*@Test
     public void testGetResults() throws Exception {
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery( "SELECT * FROM Flights;" );
@@ -160,6 +264,6 @@ public class FlightEngineTest {
         assertNotEquals(null,rs.getInt("seatsAvailable"));
         assertNotEquals(null, rs.getInt("flightNumber"));
         assertNotEquals(rs.getString("arrivalLocation").length()<=0,rs.getString("arrivalLocation"));
-
+        */
     }
 }

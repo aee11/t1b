@@ -56,7 +56,7 @@ public class FlightTrip implements Comparable {
     /**
      * @return
      */
-    public Flight[] getDepartureFlights() {
+    public List<Flight> getDepartureFlights() {
         // TODO implement here
         return null;
     }
@@ -64,7 +64,7 @@ public class FlightTrip implements Comparable {
     /**
      * @return
      */
-    public Flight[] getReturnFlights() {
+    public List<Flight> getReturnFlights() {
         // TODO implement here
         return null;
     }
