@@ -149,5 +149,17 @@ public class FlightEngineTest {
         FlightQuery query = new FlightQuery(departureDate,"Reykjavik","London");
         List<FlightTrip> results = flightEngine.getResults(query);
         assertEquals(2,results.size());
+        assertNotEquals(null,rs);
+        assertNotEquals(null,rs.getString("arrivalLocation"));
+        assertNotEquals(null,rs.getString("airline"));
+        assertNotEquals(null,rs.getString("departureTime"));
+        assertNotEquals(null,rs.getString("arrivalTime"));
+        assertNotEquals(null,rs.getString("departureLocation"));
+        assertNotEquals(null,rs.getString("arrivalLocation"));
+        assertNotEquals(null,rs.getInt("price"));
+        assertNotEquals(null,rs.getInt("seatsAvailable"));
+        assertNotEquals(null, rs.getInt("flightNumber"));
+        assertNotEquals(rs.getString("arrivalLocation").length()<=0,rs.getString("arrivalLocation"));
+
     }
 }
