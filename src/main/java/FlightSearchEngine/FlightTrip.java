@@ -16,12 +16,12 @@ public class FlightTrip implements Comparable {
     /**
      *
      */
-    private Flight[] departureFlights;
+    private List<Flight> departureFlights;
 
     /**
      *
      */
-    private Flight[] returnFlights;
+    private List<Flight> returnFlights;
 
     /**
      *
@@ -43,39 +43,44 @@ public class FlightTrip implements Comparable {
      * @param returnFlights
      */
     public FlightTrip(List<Flight> departureFlights, List<Flight> returnFlights) {
-        // TODO implement here
+        this.departureFlights = departureFlights;
+        this.returnFlights = returnFlights;
     }
 
     /**
      * @param departureFlights
      */
     public FlightTrip(List<Flight> departureFlights) {
-        // TODO implement here
+        this.departureFlights = departureFlights;
     }
 
     /**
      * @return
      */
     public List<Flight> getDepartureFlights() {
-        // TODO implement here
-        return null;
+        return departureFlights;
     }
 
     /**
      * @return
      */
     public List<Flight> getReturnFlights() {
-        // TODO implement here
-        return null;
+        return returnFlights;
     }
 
     /**
-     * @param currency
      * @return
      */
-    public int getTotalPrice(String currency) {
-        // TODO implement here
-        return 0;
+    public int getTotalPrice() {
+        int departurePrice = 0;
+        for(Flight temp : departureFlights){
+            departurePrice += temp.getPrice();
+        }
+        int returnPrice = 0;
+        for(Flight temp : returnFlights){
+            returnPrice += temp.getPrice();
+        }
+        return departurePrice + returnPrice;
     }
 
     /**
@@ -83,8 +88,10 @@ public class FlightTrip implements Comparable {
      * @return
      */
     public int compareTo(Object o) {
-        // TODO implement here
-        return 0;
+        if (!(o instanceof FlightTrip))
+            throw new ClassCastException("A FlightTrip object expected.");
+        int otherPrice = ((FlightTrip) o).getTotalPrice();
+        return this.getTotalPrice() - otherPrice;
     }
 
 }
