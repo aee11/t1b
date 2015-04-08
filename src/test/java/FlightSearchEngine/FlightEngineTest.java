@@ -5,8 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.List;
@@ -159,11 +157,30 @@ public class FlightEngineTest {
                 "VALUES (" +
                 "        302, " +
                 "        'ER', " +
-                "        '2015-03-30 12:10:00', " +
-                "        '2015-03-30 15:55:00', " +
-                "        'Reykjavik'," +
+                "        '2015-04-15 12:10:00', " +
+                "        '2015-04-15 15:55:00', " +
                 "        'Akureyri'," +
+                "        'Reykjavik'," +
                 "        30000," +
+                "        15);";
+        stmt.executeUpdate(sql);
+        sql = "INSERT INTO Flights (" +
+                "        flightNumber," +
+                "        airline," +
+                "        departureTime," +
+                "        arrivalTime," +
+                "        departureLocation," +
+                "        arrivalLocation," +
+                "        price," +
+                "        seatsAvailable) " +
+                "VALUES (" +
+                "        342, " +
+                "        'LO', " +
+                "        '2015-04-15 18:10:00', " +
+                "        '2015-04-15 22:55:00', " +
+                "        'Reykjavik'," +
+                "        'Copenhagen'," +
+                "        45000," +
                 "        15);";
         stmt.executeUpdate(sql);
         stmt.close();
@@ -303,7 +320,14 @@ public class FlightEngineTest {
     }
 
     @Test
-    public void testTwoWayFlight() {
-        // TODO: Implement after database has been updated with flights from Icelandic locations to Reykjavik and from Reykjavik to foreign countries
+    public void testTwoWayFlightWithLayoverBothWays() {
+        LocalDate departureDate =  LocalDate.of(2015,3,30);
+        LocalDate arrivalDate =  LocalDate.of(2015,4,15);
+        FlightQuery query = new FlightQuery(departureDate, arrivalDate, "Copenhagen", "Akureyri");
+        List<FlightTrip> results = flightEngine.getResults(query);
+        assertNotNull(results);
+        assertEquals(1, results.size());
+        assertEquals(2, results.get(0).getDepartureFlights().size());
+        assertEquals(2, results.get(0).getReturnFlights().size());
     }
 }
