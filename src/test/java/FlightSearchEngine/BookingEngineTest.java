@@ -164,15 +164,15 @@ public class BookingEngineTest {
     @Test
     public void testBookFlightTrip() throws Exception {
         Boolean isBooked = BE.bookFlightTrip(booking);
-        System.out.println("1");
+        //System.out.println("1");
         Statement stmt = conn.createStatement();
         String sql = "select * from Bookings";
         ResultSet rs = stmt.executeQuery(sql);
         while(rs.next()) {
             int id = rs.getInt("bookingId");
             String email = rs.getString("email");
-            System.out.println("id :" + id);
-            System.out.println("email: " + email);
+            //System.out.println("id :" + id);
+            //System.out.println("email: " + email);
         }
         assertTrue(isBooked);
     }

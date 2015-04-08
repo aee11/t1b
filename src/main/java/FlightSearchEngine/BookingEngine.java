@@ -74,13 +74,12 @@ public class BookingEngine {
                                 .and(FLIGHTS.DEPARTURETIME.startsWith(depTime)))
                         .fetchOne();
                 int seatsAvailable = (int) seatsResult.getValue(FLIGHTS.SEATSAVAILABLE);
-                if (seatsAvailable < booking.getNumSeats()) throw new Exception("Not enough seats");
+                if (seatsAvailable < booking.getNumSeats()) throw new Exception("Not enough seats available");
                 create.update(FLIGHTS)
                         .set(FLIGHTS.SEATSAVAILABLE, seatsAvailable - booking.getNumSeats());
-                // TODO change datsbase so the following works
-//                create.insertInto(BOOKEDFLIGHTS,
-//                        BOOKEDFLIGHTS.BOOKINGID,BOOKEDFLIGHTS.FLIGHTNUMBER,BOOKEDFLIGHTS.DEPARTURETIME,BOOKEDFLIGHTS.AIRLINE)
-//                        .values(bookingId,departureFlight.getFlightNumber(),depTime,departureFlight.getAirline());
+                create.insertInto(BOOKEDFLIGHTS,
+                        BOOKEDFLIGHTS.BOOKINGID,BOOKEDFLIGHTS.FLIGHTNUMBER,BOOKEDFLIGHTS.DEPARTURETIME,BOOKEDFLIGHTS.AIRLINE)
+                        .values(bookingId,departureFlight.getFlightNumber(),depTime,departureFlight.getAirline());
             }
             // Book seats on return flights
             if (booking.getFlightTrip().getReturnFlights() != null) {
@@ -94,18 +93,17 @@ public class BookingEngine {
                                     .and(FLIGHTS.DEPARTURETIME.startsWith(depTime)))
                             .fetchOne();
                     int seatsAvailable = (int) seatsResult.getValue(FLIGHTS.SEATSAVAILABLE);
-                    if (seatsAvailable < booking.getNumSeats()) throw new Exception("Not enough seats");
+                    if (seatsAvailable < booking.getNumSeats()) throw new Exception("Not enough seats available");
                     create.update(FLIGHTS)
                             .set(FLIGHTS.SEATSAVAILABLE, seatsAvailable - booking.getNumSeats());
-                    // TODO change datsbase so the following works
-                    //                create.insertInto(BOOKEDFLIGHTS,
-                    //                        BOOKEDFLIGHTS.BOOKINGID,BOOKEDFLIGHTS.FLIGHTNUMBER,BOOKEDFLIGHTS.DEPARTURETIME,BOOKEDFLIGHTS.AIRLINE)
-                    //                        .values(bookingId,returnFlight.getFlightNumber(),depTime,returnFlight.getAirline());
+                    create.insertInto(BOOKEDFLIGHTS,
+                            BOOKEDFLIGHTS.BOOKINGID,BOOKEDFLIGHTS.FLIGHTNUMBER,BOOKEDFLIGHTS.DEPARTURETIME,BOOKEDFLIGHTS.AIRLINE)
+                            .values(bookingId, returnFlight.getFlightNumber(), depTime, returnFlight.getAirline());
                 }
             }
             conn.commit();
         } catch (Exception e) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.err.println( e.getMessage() );
             try {
                 conn.rollback();
             } catch (SQLException e1) {
