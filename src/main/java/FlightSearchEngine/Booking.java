@@ -22,7 +22,6 @@ public class Booking {
      * @return
      */
     public List<String> getNames() {
-        // TODO implement here
         return names;
     }
 
@@ -30,7 +29,6 @@ public class Booking {
      * @return
      */
     public String getEmail() {
-        // TODO implement here
         return email;
     }
 
@@ -38,7 +36,6 @@ public class Booking {
      * @return
      */
     public int getNumSeats() {
-        // TODO implement here
         return numSeats;
     }
 
@@ -46,7 +43,6 @@ public class Booking {
      * @return
      */
     public FlightTrip getFlightTrip() {
-        // TODO implement here
         return flightTrip;
     }
 }
