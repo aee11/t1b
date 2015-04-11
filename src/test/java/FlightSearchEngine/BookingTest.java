@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -20,6 +21,9 @@ public class BookingTest {
 
     @Before
     public void setUp() throws Exception {
+        dep = new ArrayList<>();
+        ret = new ArrayList<>();
+        names = new ArrayList<>();
         int flightNumber1 = 1;
         LocalDateTime departureTime1 = LocalDateTime.of(2015,3,5,15,30);
         LocalDateTime arrivalTime1 = LocalDateTime.of(2015,3,5,20,20);
@@ -36,7 +40,6 @@ public class BookingTest {
         String arrivalLocation2 = "Reykjavik";
         String airline2 = "FI";
         int seatsAvailable2 = 100;
-
 
         Flight departureFlight = new Flight(flightNumber1,departureTime1,arrivalTime1,price1,departureLocation1,arrivalLocation1,airline1,seatsAvailable1);
         Flight returnFlight = new Flight(flightNumber2,departureTime2,arrivalTime2,price2,departureLocation2,arrivalLocation2,airline2,seatsAvailable2);
@@ -68,7 +71,7 @@ public class BookingTest {
 
     @Test
     public void testGetNumSeats() throws Exception {
-        assertEquals(numberOfSeats,booking.getEmail());
+        assertEquals(numberOfSeats,booking.getNumSeats());
     }
 
     @Test
