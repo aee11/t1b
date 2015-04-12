@@ -11,7 +11,7 @@ public class MockDatabaseConnection implements DatabaseConnection {
     @Override
     public Connection getConnection() {
         try {
-            return DriverManager.getConnection("jdbc:sqlite:memory");
+            return DriverManager.getConnection("jdbc:sqlite:mockDb.db");
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
