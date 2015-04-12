@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -206,7 +207,7 @@ public class FlightEngineTest {
         Flight departureFlight = departureFlights.get(0);
 
         assertNotNull(departureFlight.getFlightNumber());
-        assertEquals(301,departureFlight.getFlightNumber());
+        assertEquals(301, departureFlight.getFlightNumber());
 
     }
 
@@ -302,7 +303,7 @@ public class FlightEngineTest {
     }
     @Test
     public void testGetResults() throws Exception {
-        LocalDate departureDate =  LocalDate.of(2015,3,30);
+        LocalDate departureDate =  LocalDate.of(2015, 3, 30);
         FlightQuery query = new FlightQuery(departureDate,"Reykjavik","London");
         List<FlightTrip> results = flightEngine.getResults(query);
         assertEquals(2,results.size());
@@ -329,5 +330,25 @@ public class FlightEngineTest {
         assertEquals(1, results.size());
         assertEquals(2, results.get(0).getDepartureFlights().size());
         assertEquals(2, results.get(0).getReturnFlights().size());
+    }
+
+    @Test
+    public void testSpecialOfferNextWeek() {
+        Period week = Period.ofWeeks(1);
+        DatabaseConnection realDBConn = new FlightDatabaseConnection();
+        int numberOfOffers = 10;
+        FlightEngine realFlightEngine = new FlightEngine(realDBConn);
+        List<FlightTrip> offers = realFlightEngine.getSpecialOffers(week, numberOfOffers);
+        assertEquals(numberOfOffers, offers.size());
+    }
+
+    @Test
+    public void testSpecialOfferToday() {
+        Period today = Period.ZERO;
+        DatabaseConnection realDBConn = new FlightDatabaseConnection();
+        int numberOfOffers = 10;
+        FlightEngine realFlightEngine = new FlightEngine(realDBConn);
+        List<FlightTrip> offers = realFlightEngine.getSpecialOffers(today, numberOfOffers);
+        assertEquals(numberOfOffers, offers.size());
     }
 }

@@ -9,7 +9,10 @@ import org.jooq.impl.DSL;
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +25,12 @@ public class FlightEngine {
     private Connection conn;
     private DSLContext create;
     private DateTimeFormatter dateFormatter;
+    private DateTimeFormatter dbDateFormatter;
 
     public FlightEngine(DatabaseConnection dbConn) {
         setupDbConnection(dbConn);
         dateFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd");
+        dbDateFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
     }
 
     private void setupDbConnection(DatabaseConnection dbConn) {
@@ -129,7 +134,6 @@ public class FlightEngine {
 
     private List<Flight> transformIntoFlights(Result<Record> result) {
         List<Flight> flights = new ArrayList<>();
-        DateTimeFormatter dbDateFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
 
         for (Record res : result) {
             int flightNumber = (int) res.getValue(FLIGHTS.FLIGHTNUMBER);
@@ -154,10 +158,43 @@ public class FlightEngine {
     }
 
     /**
-     * @param query
-     * @return
+     * @param query Query to fetch results from.
+     * @return Rows from database according to query.
      */
     private Result executeQuery(SelectQuery<Record> query) {
         return query.fetch();
+    }
+
+    /**
+     * @param period A time period where special offers will be searched for.
+     * @param numberOfOffers Maximum number of special offers you want to receive. Valid range is between 1 and 100.
+     * @return List of flight trips that are special offers.
+     */
+    public List<FlightTrip> getSpecialOffers(Period period, int numberOfOffers) {
+        if (numberOfOffers < 0 || numberOfOffers > 100) {
+            throw new IllegalArgumentException(numberOfOffers + " is not in range 1..100");
+        }
+        LocalDateTime today = LocalDateTime.now();
+        // Add one day to upperDate so the results includes the upperDate
+        LocalDateTime upperDate = LocalDateTime.now().plus(period).plus(Period.ofDays(1));
+        SelectQuery<Record> query = create.select()
+                                          .from(FLIGHTS)
+                                          .where(FLIGHTS.DEPARTURETIME.between(today.format(dateFormatter))
+                                                                      .and(upperDate.format(dateFormatter)))
+                                          .orderBy(FLIGHTS.PRICE)
+                                          .limit(numberOfOffers)
+                                          .getQuery();
+        Result<Record> results = query.fetch();
+
+        List<FlightTrip> offers = new ArrayList<>();
+
+        List<Flight> flights = transformIntoFlights(results);
+        for (Flight depFlight : flights) {
+            List<Flight> departureFlights = new ArrayList<>();
+            departureFlights.add(depFlight);
+            FlightTrip flightTrip = new FlightTrip(departureFlights);
+            offers.add(flightTrip);
+        }
+        return offers;
     }
 }
