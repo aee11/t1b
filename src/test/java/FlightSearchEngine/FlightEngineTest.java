@@ -184,6 +184,103 @@ public class FlightEngineTest {
                 "        45000," +
                 "        15);";
         stmt.executeUpdate(sql);
+        // ConnectionTimeTest BEGINS
+        sql = "INSERT INTO Flights (" +
+                "        flightNumber," +
+                "        airline," +
+                "        departureTime," +
+                "        arrivalTime," +
+                "        departureLocation," +
+                "        arrivalLocation," +
+                "        price," +
+                "        seatsAvailable) " +
+                "VALUES (" +
+                "        312, " +
+                "        'SD', " +
+                "        '2015-04-12 12:10:00', " +
+                "        '2015-04-12 15:55:00', " +
+                "        'London'," +
+                "        'Reykjavik'," +
+                "        30400," +
+                "        12);";
+        stmt.executeUpdate(sql);
+        sql = "INSERT INTO Flights (" +
+                "        flightNumber," +
+                "        airline," +
+                "        departureTime," +
+                "        arrivalTime," +
+                "        departureLocation," +
+                "        arrivalLocation," +
+                "        price," +
+                "        seatsAvailable) " +
+                "VALUES (" +
+                "        322, " +
+                "        'HE', " +
+                "        '2015-04-12 16:00:00', " +
+                "        '2015-04-12 20:55:00', " +
+                "        'Reykjavik'," +
+                "        'Hofn'," +
+                "        45012," +
+                "        11);";
+        stmt.executeUpdate(sql);
+        sql = "INSERT INTO Flights (" +
+                "        flightNumber," +
+                "        airline," +
+                "        departureTime," +
+                "        arrivalTime," +
+                "        departureLocation," +
+                "        arrivalLocation," +
+                "        price," +
+                "        seatsAvailable) " +
+                "VALUES (" +
+                "        323, " +
+                "        'HE', " +
+                "        '2015-04-12 17:55:00', " +
+                "        '2015-04-12 22:55:00', " +
+                "        'Reykjavik'," +
+                "        'Hofn'," +
+                "        45015," +
+                "        16);";
+        stmt.executeUpdate(sql);
+        sql = "INSERT INTO Flights (" +
+                "        flightNumber," +
+                "        airline," +
+                "        departureTime," +
+                "        arrivalTime," +
+                "        departureLocation," +
+                "        arrivalLocation," +
+                "        price," +
+                "        seatsAvailable) " +
+                "VALUES (" +
+                "        324, " +
+                "        'HE', " +
+                "        '2015-04-12 19:55:00', " +
+                "        '2015-04-12 22:55:00', " +
+                "        'Reykjavik'," +
+                "        'Hofn'," +
+                "        45016," +
+                "        17);";
+        stmt.executeUpdate(sql);
+        sql = "INSERT INTO Flights (" +
+                "        flightNumber," +
+                "        airline," +
+                "        departureTime," +
+                "        arrivalTime," +
+                "        departureLocation," +
+                "        arrivalLocation," +
+                "        price," +
+                "        seatsAvailable) " +
+                "VALUES (" +
+                "        325, " +
+                "        'HE', " +
+                "        '2015-04-12 19:56:00', " +
+                "        '2015-04-12 22:55:00', " +
+                "        'Reykjavik'," +
+                "        'Hofn'," +
+                "        45017," +
+                "        18);";
+        stmt.executeUpdate(sql);
+        // ConnectionTimeTest ENDS
         stmt.close();
         flightEngine = new FlightEngine(mockDBConn);
     }
@@ -362,5 +459,16 @@ public class FlightEngineTest {
         // One at 06:20 (night flight) and the other at 09:20.
         assertNotNull(results);
         assertEquals(1, results.size());
+    }
+
+    @Test
+    public void testConnectionTime() {
+        LocalDate departureDate =  LocalDate.of(2015,4,12);
+        FlightQuery query = new FlightQuery(departureDate, "London", "Hofn");
+        query.setConnectionTime(120, 240);
+        List<FlightTrip> results = flightEngine.getResults(query);
+        assertNotNull(results);
+        // Just two out of four flight trips satisfy the connection time conditions
+        assertEquals(2, results.size());
     }
 }

@@ -7,12 +7,12 @@ package FlightSearchEngine;
 import org.jooq.*;
 import org.jooq.impl.DSL;
 import java.sql.Connection;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,12 +57,48 @@ public class FlightEngine {
             flightTrips = getOneWayFlightTrips(query);
         }
         if (query.getNightFlightsOnly()) {
-            nightFlightFilter(flightTrips);
+            removeNightFlights(flightTrips);
+        }
+        if (query.getConnectionTimeMin() != 0) { // Connection time declared
+            filterByConnectionTime(flightTrips, query);
         }
         return flightTrips;
     }
 
-    private void nightFlightFilter(List<FlightTrip> flightTrips) {
+    private void filterByConnectionTime(List<FlightTrip> flightTrips, FlightQuery query) {
+        List<FlightTrip> flightTripsToRemove = new ArrayList<>(); // Can't delete flightTrip in for-loop (concurrency error)
+        Duration allowedMinDuration = Duration.ofMinutes(query.getConnectionTimeMin());
+        Duration allowedMaxDuration = Duration.ofMinutes(query.getConnectionTimeMax());
+        for (FlightTrip flightTrip : flightTrips) {
+            List<Flight> departureFlights = flightTrip.getDepartureFlights();
+            List<Flight> returnFlights = flightTrip.getReturnFlights();
+            if (departureFlights.size() == 2) { // Layover flight?
+                LocalDateTime layoverArrival = departureFlights.get(0).getArrivalTime();
+                LocalDateTime layoverDeparture = departureFlights.get(1).getDepartureTime();
+                Duration connectionDuration = Duration.between(layoverArrival, layoverDeparture);
+                if (!(   connectionDuration.getSeconds() >= allowedMinDuration.getSeconds()
+                      && connectionDuration.getSeconds() <= allowedMaxDuration.getSeconds())) {
+                    flightTripsToRemove.add(flightTrip);
+                    continue;
+                }
+            }
+            if (returnFlights != null && returnFlights.size() == 2) {
+                LocalDateTime layoverArrival = returnFlights.get(0).getArrivalTime();
+                LocalDateTime layoverDeparture = returnFlights.get(1).getDepartureTime();
+                Duration connectionDuration = Duration.between(layoverArrival, layoverDeparture);
+                if (   connectionDuration.getSeconds() >= allowedMinDuration.getSeconds()
+                    && connectionDuration.getSeconds() <= allowedMaxDuration.getSeconds()) {
+                    flightTripsToRemove.add(flightTrip);
+                }
+            }
+        }
+        for (FlightTrip badTrip : flightTripsToRemove) {
+            flightTrips.remove(badTrip);
+        }
+    }
+
+    private void removeNightFlights(List<FlightTrip> flightTrips) {
+        List<FlightTrip> flightTripsToRemove = new ArrayList<>();
         for (FlightTrip flightTrip : flightTrips) {
             for (Flight depFlight : flightTrip.getDepartureFlights()) {
                 LocalDateTime departureTime = depFlight.getDepartureTime();
@@ -73,10 +109,13 @@ public class FlightEngine {
                 if ((departureTime.isAfter(departureDateMidnight) &&
                         departureTime.isBefore(departureDateMidnight.plusHours(7))) ||
                         departureTime.isAfter(departureDateMidnight.plusHours(22))) {
-                    flightTrips.remove(flightTrip);
+                    flightTripsToRemove.add(flightTrip);
                     break;
                 }
             }
+        }
+        for (FlightTrip badTrip : flightTripsToRemove) {
+            flightTrips.remove(badTrip);
         }
     }
 
