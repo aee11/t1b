@@ -48,12 +48,35 @@ public class FlightEngine {
     }
 
     private List<FlightTrip> getFlightTrips(FlightQuery query) {
+        List<FlightTrip> flightTrips;
         if (query.getReturnTime() != null) {
             // Two-way flight query
-            return getTwoWayFlightTrips(query);
+            flightTrips = getTwoWayFlightTrips(query);
         } else {
             // One-way flight query
-            return getOneWayFlightTrips(query);
+            flightTrips = getOneWayFlightTrips(query);
+        }
+        if (query.getNightFlightsOnly()) {
+            nightFlightFilter(flightTrips);
+        }
+        return flightTrips;
+    }
+
+    private void nightFlightFilter(List<FlightTrip> flightTrips) {
+        for (FlightTrip flightTrip : flightTrips) {
+            for (Flight depFlight : flightTrip.getDepartureFlights()) {
+                LocalDateTime departureTime = depFlight.getDepartureTime();
+                LocalDateTime departureDateMidnight = departureTime.truncatedTo(ChronoUnit.DAYS);
+
+                // If the flight is between 00:00 and 07:00 on the date of the flight
+                // OR the flight is after   22:00
+                if ((departureTime.isAfter(departureDateMidnight) &&
+                        departureTime.isBefore(departureDateMidnight.plusHours(7))) ||
+                        departureTime.isAfter(departureDateMidnight.plusHours(22))) {
+                    flightTrips.remove(flightTrip);
+                    break;
+                }
+            }
         }
     }
 
@@ -175,12 +198,13 @@ public class FlightEngine {
             throw new IllegalArgumentException(numberOfOffers + " is not in range 1..100");
         }
         LocalDateTime today = LocalDateTime.now();
+
         // Add one day to upperDate so the results includes the upperDate
         LocalDateTime upperDate = LocalDateTime.now().plus(period).plus(Period.ofDays(1));
         SelectQuery<Record> query = create.select()
                                           .from(FLIGHTS)
                                           .where(FLIGHTS.DEPARTURETIME.between(today.format(dateFormatter))
-                                                                      .and(upperDate.format(dateFormatter)))
+                                                  .and(upperDate.format(dateFormatter)))
                                           .orderBy(FLIGHTS.PRICE)
                                           .limit(numberOfOffers)
                                           .getQuery();

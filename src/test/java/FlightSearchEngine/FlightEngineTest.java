@@ -351,4 +351,16 @@ public class FlightEngineTest {
         List<FlightTrip> offers = realFlightEngine.getSpecialOffers(today, numberOfOffers);
         assertEquals(numberOfOffers, offers.size());
     }
+
+    @Test
+    public void testNightFlight() {
+        LocalDate departureDate =  LocalDate.of(2015,3,30);
+        FlightQuery query = new FlightQuery(departureDate, "Reykjavik", "London");
+        query.setNightFlightsOnly(true);
+        List<FlightTrip> results = flightEngine.getResults(query);
+        // There are two flights from Reykjavik to London on this date.
+        // One at 06:20 (night flight) and the other at 09:20.
+        assertNotNull(results);
+        assertEquals(1, results.size());
+    }
 }
