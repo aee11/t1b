@@ -92,4 +92,14 @@ public class FlightTripTest {
         Collections.sort(trips);
         assertTrue(trips.get(0).getTotalPrice() <= trips.get(1).getTotalPrice());
     }
+
+    @Test
+    public void testDepartureTravelTime() throws Exception {
+        assertEquals(flightTrip.getDepartureTravelTimeInMinutes(), (long) 290);
+    }
+
+    @Test
+    public void testReturnTravelTime() throws Exception {
+        assertEquals(flightTrip.getReturnTravelTimeInMinutes(), (long) 345);
+    }
 }

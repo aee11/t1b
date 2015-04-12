@@ -1,5 +1,7 @@
 package FlightSearchEngine;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 /**
@@ -92,6 +94,18 @@ public class FlightTrip implements Comparable {
             throw new ClassCastException("A FlightTrip object expected.");
         int otherPrice = ((FlightTrip) o).getTotalPrice();
         return this.getTotalPrice() - otherPrice;
+    }
+
+    public long getDepartureTravelTimeInMinutes() {
+        LocalDateTime departureTime = getDepartureFlights().get(0).getDepartureTime();
+        LocalDateTime arrivalTime = getDepartureFlights().get(getDepartureFlights().size()-1).getArrivalTime();
+        return departureTime.until(arrivalTime, ChronoUnit.MINUTES);
+    }
+
+    public long getReturnTravelTimeInMinutes() {
+        LocalDateTime departureTime = getReturnFlights().get(0).getDepartureTime();
+        LocalDateTime arrivalTime = getReturnFlights().get(getDepartureFlights().size()-1).getArrivalTime();
+        return departureTime.until(arrivalTime, ChronoUnit.MINUTES);
     }
 
 }
