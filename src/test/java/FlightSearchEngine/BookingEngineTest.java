@@ -71,8 +71,8 @@ public class BookingEngineTest {
         names.add("Jón");
         names.add("Páll");
         names.add("Móses");
-        booking = new Booking(names, "jonjonsson@jon.is", 3, flightTripOneWay);
-        almostFullBooking = new Booking(names, "janesmith@smith.com", 3, almostFullOneWay);
+        booking = new Booking(names, "gisttor@gmail.com", 3, flightTripOneWay);
+        almostFullBooking = new Booking(names, "gisttor@gmail.com", 3, almostFullOneWay);
 
         DatabaseConnection mockDBConn = new MockDatabaseConnection();
         conn = mockDBConn.getConnection();
