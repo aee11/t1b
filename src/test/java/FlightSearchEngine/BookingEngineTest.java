@@ -181,4 +181,31 @@ public class BookingEngineTest {
     public void testBookFullFlight() throws Exception {
         assertFalse(BE.bookFlightTrip(almostFullBooking));
     }
+
+    @Test
+    public void testDeleteBooking () throws Exception {
+        Boolean isBooked = BE.bookFlightTrip(booking);
+        //System.out.println("Booking...");
+        Statement stmt = conn.createStatement();
+        String sql = "select * from Bookings";
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()) {
+            int id = rs.getInt("bookingId");
+            String email = rs.getString("email");
+            //System.out.println("id :" + id);
+            //System.out.println("email: " + email);
+        }
+        assertTrue(isBooked);
+        //System.out.println("BookingId: " + booking.getBookingId());
+        //System.out.println("Deleting...");
+        Boolean isDeleted = BE.deleteBooking(booking);
+        rs = stmt.executeQuery(sql);
+        while(rs.next()) {
+            int id = rs.getInt("bookingId");
+            String email = rs.getString("email");
+            //System.out.println("id :" + id);
+            //System.out.println("email: " + email);
+        }
+        assertTrue(isDeleted);
+    }
 }

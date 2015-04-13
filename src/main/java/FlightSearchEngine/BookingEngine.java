@@ -15,6 +15,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.jooq.impl.DSL.*;
 /**
@@ -102,6 +104,7 @@ public class BookingEngine {
                 }
             }
             conn.commit();
+            booking.setBookingId(bookingId);
         } catch (Exception e) {
             System.err.println( e.getMessage() );
             try {
@@ -121,6 +124,29 @@ public class BookingEngine {
     private boolean sendEmail(Booking booking) {
         // TODO implement here
         return false;
+    }
+
+    public boolean deleteBooking(Booking booking) {
+        try {
+            conn.setAutoCommit(false);
+            create.delete(BOOKEDFLIGHTS)
+                    .where(BOOKEDFLIGHTS.BOOKINGID.equal(booking.getBookingId())).execute();
+            create.delete(PASSENGERS)
+                    .where(PASSENGERS.BOOKINGID.equal(booking.getBookingId())).execute();
+            create.delete(BOOKINGS)
+                    .where(BOOKINGS.BOOKINGID.equal(booking.getBookingId())).execute();
+            conn.commit();
+        } catch (Exception e) {
+            System.err.println( e.getMessage() );
+            try {
+                conn.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            return false;
+        }
+        booking.deleteBooking();
+        return true;
     }
 
 }

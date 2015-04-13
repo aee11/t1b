@@ -10,6 +10,7 @@ public class Booking {
     private final String email;
     private final int numSeats;
     private final FlightTrip flightTrip;
+    private Integer bookingId;
 
     public Booking(List<String> names, String email, int numSeats, FlightSearchEngine.FlightTrip flightTrip) {
         this.names = names;
@@ -44,5 +45,21 @@ public class Booking {
      */
     public FlightTrip getFlightTrip() {
         return flightTrip;
+    }
+
+    void setBookingId(int id) {
+        if (bookingId == null) {
+            bookingId = id;
+        } else {
+            throw new IllegalStateException();
+        }
+    }
+
+    int getBookingId() {
+        return bookingId;
+    }
+
+    void deleteBooking() {
+        bookingId = null;
     }
 }
