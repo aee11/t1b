@@ -1,7 +1,6 @@
 package FlightSearchEngine;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * Created by Alexander on 18.2.2015.

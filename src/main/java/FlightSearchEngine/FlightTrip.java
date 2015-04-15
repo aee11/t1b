@@ -2,13 +2,12 @@ package FlightSearchEngine;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by Alexander on 18.2.2015.
  */
-
-import java.util.*;
 
 /**
  *
@@ -79,8 +78,10 @@ public class FlightTrip implements Comparable {
             departurePrice += temp.getPrice();
         }
         int returnPrice = 0;
-        for(Flight temp : returnFlights){
-            returnPrice += temp.getPrice();
+        if (returnFlights != null) {
+            for(Flight temp : returnFlights){
+                returnPrice += temp.getPrice();
+            }
         }
         return departurePrice + returnPrice;
     }

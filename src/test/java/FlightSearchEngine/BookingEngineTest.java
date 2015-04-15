@@ -34,7 +34,7 @@ public class BookingEngineTest {
         String arrivalLocation1 = "London";
         int seatsAvailable1 = 100;
         Flight departureFlight = new Flight(flightNumber1,departureTime1,arrivalTime1,price1,departureLocation1,arrivalLocation1,airline1,seatsAvailable1);
-        List<Flight> departureFlights = new ArrayList<>();
+        List<Flight> departureFlights = new ArrayList<Flight>();
         departureFlights.add(departureFlight);
 
         // Return flight
@@ -47,7 +47,7 @@ public class BookingEngineTest {
         String arrivalLocation2 = "Reykjavik";
         int seatsAvailable2 = 100;
         Flight returnFlight = new Flight(flightNumber2,departureTime2,arrivalTime2,price2,departureLocation2,arrivalLocation2,airline2,seatsAvailable2);
-        List<Flight> returnFlights = new ArrayList<>();
+        List<Flight> returnFlights = new ArrayList<Flight>();
         returnFlights.add(returnFlight);
 
         // Almost full departure flight
@@ -60,14 +60,14 @@ public class BookingEngineTest {
         String arrivalLocation3 = "London";
         int seatsAvailable3 = 2;
         Flight departureFlight3 = new Flight(flightNumber3,departureTime3,arrivalTime3,price3,departureLocation3,arrivalLocation3,airline3,seatsAvailable3);
-        List<Flight> departureFlights3 = new ArrayList<>();
+        List<Flight> departureFlights3 = new ArrayList<Flight>();
         departureFlights3.add(departureFlight3);
 
 
         FlightTrip flightTripOneWay = new FlightTrip(departureFlights, null);
         FlightTrip flightTripTwoWay = new FlightTrip(departureFlights, returnFlights);
         FlightTrip almostFullOneWay = new FlightTrip(departureFlights3, null);
-        List<String> names = new ArrayList<>();
+        List<String> names = new ArrayList<String>();
         names.add("Jón");
         names.add("Páll");
         names.add("Móses");

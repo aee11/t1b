@@ -4,32 +4,24 @@ package FlightSearchEngine;
  * Created by Gisli on 05/03/15.
  */
 
-import static FlightSearchEngine.Tables.*;
-
-import org.jooq.*;
+import org.jooq.DSLContext;
+import org.jooq.Record;
+import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
-import org.jooq.util.sqlite.SQLiteDSL;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Properties;
-
-import org.jooq.impl.DSL.*;
-import org.jooq.impl.DSL.*;
-
-import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Properties;
 
-import static javax.mail.Message.*;
-import static javax.mail.Message.RecipientType.*;
+import static FlightSearchEngine.Tables.*;
+import static javax.mail.Message.RecipientType;
 /**
  *
  */

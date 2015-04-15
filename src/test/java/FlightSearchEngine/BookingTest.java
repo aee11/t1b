@@ -21,9 +21,9 @@ public class BookingTest {
 
     @Before
     public void setUp() throws Exception {
-        dep = new ArrayList<>();
-        ret = new ArrayList<>();
-        names = new ArrayList<>();
+        dep = new ArrayList<Flight>();
+        ret = new ArrayList<Flight>();
+        names = new ArrayList<String>();
         int flightNumber1 = 1;
         LocalDateTime departureTime1 = LocalDateTime.of(2015,3,5,15,30);
         LocalDateTime arrivalTime1 = LocalDateTime.of(2015,3,5,20,20);

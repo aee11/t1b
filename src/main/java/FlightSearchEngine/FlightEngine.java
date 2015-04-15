@@ -6,6 +6,7 @@ package FlightSearchEngine;
 
 import org.jooq.*;
 import org.jooq.impl.DSL;
+
 import java.sql.Connection;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -16,7 +17,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-import static FlightSearchEngine.Tables.*;
+import static FlightSearchEngine.Tables.FLIGHTS;
 
 /**
  *
@@ -66,7 +67,7 @@ public class FlightEngine {
     }
 
     private void filterByConnectionTime(List<FlightTrip> flightTrips, FlightQuery query) {
-        List<FlightTrip> flightTripsToRemove = new ArrayList<>(); // Can't delete flightTrip in for-loop (concurrency error)
+        List<FlightTrip> flightTripsToRemove = new ArrayList<FlightTrip>(); // Can't delete flightTrip in for-loop (concurrency error)
         Duration allowedMinDuration = Duration.ofMinutes(query.getConnectionTimeMin());
         Duration allowedMaxDuration = Duration.ofMinutes(query.getConnectionTimeMax());
         for (FlightTrip flightTrip : flightTrips) {
@@ -98,7 +99,7 @@ public class FlightEngine {
     }
 
     private void removeNightFlights(List<FlightTrip> flightTrips) {
-        List<FlightTrip> flightTripsToRemove = new ArrayList<>();
+        List<FlightTrip> flightTripsToRemove = new ArrayList<FlightTrip>();
         for (FlightTrip flightTrip : flightTrips) {
             for (Flight depFlight : flightTrip.getDepartureFlights()) {
                 LocalDateTime departureTime = depFlight.getDepartureTime();
@@ -138,7 +139,7 @@ public class FlightEngine {
 
     private List<FlightTrip> createFlightTrips(List<List<Flight>> departureFlights, List<List<Flight>> returnFlights) {
         Boolean isOneWay = returnFlights == null;
-        List<FlightTrip> flightTrips = new ArrayList<>();
+        List<FlightTrip> flightTrips = new ArrayList<FlightTrip>();
         for (List<Flight> depFlight : departureFlights) {
             if (isOneWay) {
                 flightTrips.add(new FlightTrip(depFlight));
@@ -169,20 +170,20 @@ public class FlightEngine {
     }
 
     private List<List<Flight>> createFlightPaths(List<Flight> flights, String from, String to) {
-        List<List<Flight>> flightsWithConnectionFlights = new ArrayList<>();
+        List<List<Flight>> flightsWithConnectionFlights = new ArrayList<List<Flight>>();
         for (Flight flightA : flights) {
             if (flightA.getDepartureLocation().equals(from)) {
                 for (Flight flightB : flights) {
                     if (flightB.getArrivalLocation().equals(to)) {
                         if (flightA.equals(flightB)) {
                             // Direct flight
-                            List<Flight> flightList = new ArrayList<>();
+                            List<Flight> flightList = new ArrayList<Flight>();
                             flightList.add(flightA);
                             flightsWithConnectionFlights.add(flightList);
                         } else if (flightA.getArrivalLocation().equals(flightB.getDepartureLocation()) &&
                                 flightA.getArrivalTime().isBefore(flightB.getDepartureTime())) {
                             // Connecting flight
-                            List<Flight> flightList = new ArrayList<>();
+                            List<Flight> flightList = new ArrayList<Flight>();
                             flightList.add(flightA);
                             flightList.add(flightB);
                             flightsWithConnectionFlights.add(flightList);
@@ -195,7 +196,7 @@ public class FlightEngine {
     }
 
     private List<Flight> transformIntoFlights(Result<Record> result) {
-        List<Flight> flights = new ArrayList<>();
+        List<Flight> flights = new ArrayList<Flight>();
 
         for (Record res : result) {
             int flightNumber = (int) res.getValue(FLIGHTS.FLIGHTNUMBER);
@@ -249,11 +250,11 @@ public class FlightEngine {
                                           .getQuery();
         Result<Record> results = query.fetch();
 
-        List<FlightTrip> offers = new ArrayList<>();
+        List<FlightTrip> offers = new ArrayList<FlightTrip>();
 
         List<Flight> flights = transformIntoFlights(results);
         for (Flight depFlight : flights) {
-            List<Flight> departureFlights = new ArrayList<>();
+            List<Flight> departureFlights = new ArrayList<Flight>();
             departureFlights.add(depFlight);
             FlightTrip flightTrip = new FlightTrip(departureFlights);
             offers.add(flightTrip);
